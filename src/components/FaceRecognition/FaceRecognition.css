@@ -1,0 +1,23 @@
+.faceBox {
+  position: absolute;
+  box-shadow: 0 0 10px blue;
+  cursor: pointer;
+  flex-wrap: wrap;
+}
+
+.loading {
+  height: 100%;
+  width: 3px;
+  border-radius: 5px;
+  box-shadow: 255 0 0 rgba(0, 0, 0, 0.3);
+  position: absolute;
+  background-color: blue;
+  animation: loading 1s linear infinite;
+  top: 0;
+  left: 0;
+}
+
+@keyframes loading {
+  from {transform: translateX(-10px);}
+  to {transform: translateX(710px);}
+}
