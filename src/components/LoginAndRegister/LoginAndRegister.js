@@ -26,6 +26,7 @@ const LoginAndRegister = (props) => {
   }
 
   const onSigninOrRegisterSumbit = (e) => {
+    setMessage('')
     if (route == "register") {
       if (!inputEmail || !inputPassword || !inputName) {
         warningMessageForRegister();
@@ -57,6 +58,12 @@ const LoginAndRegister = (props) => {
           password: inputPassword,
         })
       );
+    }
+  };
+
+  const handleKeyPress = (e) => {
+    if (e.key === "Enter") {
+      onSigninOrRegisterSumbit();
     }
   };
 
@@ -104,6 +111,7 @@ const LoginAndRegister = (props) => {
               type="email"
               name="email-address"
               id="email-address"
+              onKeyPress={handleKeyPress}
             />
           </div>
           <div className="mv3">
@@ -116,6 +124,7 @@ const LoginAndRegister = (props) => {
               type="password"
               name="password"
               id="password"
+              onKeyPress={handleKeyPress}
             />
           </div>
         </fieldset>

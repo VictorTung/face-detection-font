@@ -47,6 +47,12 @@ export default function ImageLinkForm() {
       .catch((err) => console.log(err));
   };
 
+  const handleKeyPress = (e) => {
+    if (e.key === "Enter") {
+      onPictureSubmit();
+    }
+  };
+
   return (
     <>
       <div>
@@ -68,6 +74,8 @@ export default function ImageLinkForm() {
             type="text"
             onChange={(e) => setInput(e.target.value)}
             value={input}
+            onKeyPress={handleKeyPress}
+            placeholder="Enter photo link"
           />
           <button
             className="w-30 grow f4 link ph3 pv2 dib white bg-light-purple pointer"
