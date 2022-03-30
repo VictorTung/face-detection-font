@@ -1,0 +1,53 @@
+.container {
+  background-color: rgba(255, 255, 255, 0.3);
+  min-width: 300px;
+  max-width: 500px;
+  width: 70%;
+  margin: 0 auto;
+  border: 1px solid black;
+  padding: 30px;
+  margin-top: 30px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+  position: relative;
+}
+
+.message {
+  font-weight: bold;
+  font-size: 30px;
+  color: red;
+  background-color: rgba(247, 22, 22, 0.3);
+  min-width: 300px;
+  max-width: 500px;
+  width: 70%;
+  margin: 0 auto;
+  border: 1px solid black;
+  padding: 30px;
+  margin-top: 30px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+}
+
+.loadingUser {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background-color: rgba(255, 255, 255, 1);
+  animation: loadUser 2s linear infinite;
+  display: grid;
+  place-items: center;
+  font-size: 50px;
+  font-weight: bold;
+}
+
+@keyframes loadUser {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.8;
+  }
+  100% {
+    opacity: 0;
+  }
+}

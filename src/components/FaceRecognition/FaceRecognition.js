@@ -1,23 +1,18 @@
 import { React } from "react";
 import "./FaceRecognition.css";
+import { useSelector } from "react-redux";
 
-export default function FaceRecognition({ imageUrl, boxes }) {
+export default function FaceRecognition() {
+  const url = useSelector((state) => state.photo.url);
+  const faceBox = useSelector((state) => state.photo.faceBox);
+
   return (
-    <div
-      className="center relative"
-      style={{
-        // display: "flex",
-        // justifyContent: "center",
-        width: "700px",
-        overflow: "hidden",
-      }}
-    >
+    <div className="relative img-container">
+      <img id="inputImage" src={url} alt="" style={{ width: "700px" }} />
 
-      <img id="inputImage" src={imageUrl} alt="" style={{ width: "700px" }} />
-
-      {boxes.length > 0 ? (
+      {faceBox.length > 0 ? (
         <>
-          {boxes.map((box, i) => {
+          {faceBox.map((box, i) => {
             return (
               <div
                 key={i}
@@ -36,13 +31,7 @@ export default function FaceRecognition({ imageUrl, boxes }) {
         ""
       )}
 
-      {
-        imageUrl&&boxes.length==0?
-        <div className="loading"></div>
-        :
-        ""
-      }
-
+      {url && faceBox.length == 0 ? <div className="loading"></div> : ""}
     </div>
   );
 }

@@ -1,0 +1,33 @@
+constants(type) --> action ( function return {type & payload})
+
+constants --> reducers (initial state {...} & reducers function)
+
+Provider from "react-redux"  ->  <Provider store={store}>
+createStore from "redux"  ->  const store = createStore(rootReducer)     --> index.js
+rootReducer from "reducers"
+
+createLogger from "redux-logger                                                                               
+applyMiddleware from "redux"  ->   const store = createStore(rootReducer, applyMiddleware(createLogger()))    --> index.js
+
+
+thunkMiddleware from "redux-thunk"  -> applyMiddleware(thunkMiddleware)
+
+
+          connect from "react-redux" 
+          -> export default connect(mapStateTpProps, mapDispatchToProps)(App)  --> App.js
+          -> mapStateToProps function 
+action.js -> mapDispatchToProps function 
+
+---------------------redux toolkit:-----------------------------
+
+{ createSlice,createAsyncThunk } "@reduxjs/toolkit" ---> features && export reducer, actions
+
+ { configureStore }  '@reduxjs/toolkit'      
+ ... reducers                               ---> store
+
+{Provider} 'react-redux' 
+{ store } './app/store '    ---> index.js 
+
+{... actions}   
+ { useSelector, useDispatch }  "react-redux";       ---> component.js
+

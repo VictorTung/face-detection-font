@@ -1,6 +1,9 @@
 import { React } from "react";
+import { useSelector } from "react-redux";
 
-export default function Rank({ name, entries }) {
+export default function Rank() {
+  const { name, entries } = useSelector((state) => state.user.value);
+
   return (
     <>
       <div style={{ textAlign: "center" }} className="white f3 text-ce">

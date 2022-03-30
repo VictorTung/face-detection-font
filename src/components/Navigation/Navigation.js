@@ -1,6 +1,13 @@
 import { React } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { userSignout } from "../../features/userSlice";
+import { changeRoute } from "../../features/routeSlice";
+import { Link } from "react-router-dom";
 
-export default function Navigation({ onRouteChange, isSignIn }) {
+export default function Navigation() {
+  const dispatch = useDispatch();
+  const userStatus = useSelector((state) => state.user.status);
+
   const navStyle = {
     display: "flex",
     justifyContent: "flex-end",
@@ -8,31 +15,30 @@ export default function Navigation({ onRouteChange, isSignIn }) {
 
   return (
     <>
-      {isSignIn ? (
-        <nav style={navStyle}>
-          <p
-            onClick={() => onRouteChange("signin")}
-            className="f3 link dim black underline pa3 pointer"
-          >
-            Sign Out
-          </p>
+      {userStatus == "login" ? (
+        <nav
+          style={navStyle}
+          onClick={() => dispatch(userSignout())}
+          className="f3 link dim black underline pa3 pointer"
+        >
+          Sign Out
         </nav>
       ) : (
         <nav style={navStyle}>
-          <p
-            onClick={() => onRouteChange("signin")}
+          <div
+            onClick={() => dispatch(changeRoute('signin'))}
             className="f3 link dim black underline pa3 pointer"
             style={navStyle}
           >
             Sign in
-          </p>
-          <p
-            onClick={() => onRouteChange("register")}
+          </div>
+          <div
+            onClick={() => dispatch(changeRoute('register'))}
             className="f3 link dim black underline pa3 pointer"
             style={navStyle}
           >
             Register
-          </p>
+          </div>
         </nav>
       )}
     </>
