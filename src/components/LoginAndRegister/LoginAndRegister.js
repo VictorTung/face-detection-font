@@ -99,6 +99,7 @@ const LoginAndRegister = (props) => {
                   type="text"
                   name="name"
                   id="name"
+                  autoFocus
                 />
               </>
             )}
@@ -112,6 +113,7 @@ const LoginAndRegister = (props) => {
               name="email-address"
               id="email-address"
               onKeyPress={handleKeyPress}
+              autoFocus
             />
           </div>
           <div className="mv3">
