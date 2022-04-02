@@ -60,7 +60,9 @@ export default function Navigation() {
             dispatch(userSignout());
           }}
         >
-          Sign Out
+          <ul>
+            <li>Sign Out</li>
+          </ul>
         </div>
       ) : (
         <div style={navStyle}>

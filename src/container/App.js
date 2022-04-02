@@ -26,7 +26,7 @@ const App = () => {
 
   return (
     <>
-      {/* <Particles className="particles" options={particlesOption} /> */}
+      <Particles className="particles" options={particlesOption} />
       {userStatus === "login" ? (
         <>
           <Logo />
