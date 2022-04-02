@@ -1,6 +1,7 @@
 import { React, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { userSignin } from "../../features/userSlice";
+import { clearPhoto } from "../../features/photoSlice";
 import { changeRoute } from "../../features/routeSlice";
 import {
   changeName,
@@ -47,6 +48,7 @@ const LoginAndRegister = (props) => {
     }
 
     if (inputEmail && inputPassword && route === "signin") {
+      dispatch(clearPhoto());
       dispatch(
         userSignin({
           email: inputEmail,
@@ -56,6 +58,7 @@ const LoginAndRegister = (props) => {
     }
 
     if (inputEmail && inputPassword && inputName && route === "register") {
+      dispatch(clearPhoto());
       dispatch(
         userSignin({
           name: inputName,
