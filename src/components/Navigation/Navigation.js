@@ -2,11 +2,27 @@ import { React } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { userSignout } from "../../features/userSlice";
 import { changeRoute } from "../../features/routeSlice";
-import { Link } from "react-router-dom";
+import {
+  changeEmail,
+  changeName,
+  changePassword,
+} from "../../features/inputSlice";
+import "./Navigation.css";
+import { Link, useLocation } from "react-router-dom";
 
 export default function Navigation() {
   const dispatch = useDispatch();
+  const location = useLocation();
   const userStatus = useSelector((state) => state.user.status);
+  const inputName = useSelector((state) => state.input.name);
+  const inputPassword = useSelector((state) => state.input.password);
+  const inputEmail = useSelector((state) => state.input.email);
+
+  const clearInput = () => {
+    dispatch(changeName(""));
+    dispatch(changeEmail(""));
+    dispatch(changePassword(""));
+  };
 
   const navStyle = {
     display: "flex",
@@ -14,33 +30,62 @@ export default function Navigation() {
   };
 
   return (
-    <>
-      {userStatus == "login" ? (
-        <nav
+    <nav className="nav-bar">
+      <div className="nav-route">
+        <ul>
+          <li>
+            <Link to="/react-query">react-query</Link>
+          </li>
+          <li>
+            <Link to="/redux-query">redux-query</Link>
+          </li>
+        </ul>
+      </div>
+
+      {location.pathname !== "/" ? (
+        <div>
+          <ul>
+            <li>
+              <Link to="/" onClick={clearInput}>
+                Home
+              </Link>
+            </li>
+          </ul>
+        </div>
+      ) : userStatus === "login" ? (
+        <div
           style={navStyle}
-          onClick={() => dispatch(userSignout())}
-          className="f3 link dim black underline pa3 pointer"
+          onClick={() => {
+            clearInput();
+            dispatch(userSignout());
+          }}
         >
           Sign Out
-        </nav>
+        </div>
       ) : (
-        <nav style={navStyle}>
-          <div
-            onClick={() => dispatch(changeRoute('signin'))}
-            className="f3 link dim black underline pa3 pointer"
-            style={navStyle}
-          >
-            Sign in
-          </div>
-          <div
-            onClick={() => dispatch(changeRoute('register'))}
-            className="f3 link dim black underline pa3 pointer"
-            style={navStyle}
-          >
-            Register
-          </div>
-        </nav>
+        <div style={navStyle}>
+          <ul className="nav-list">
+            <li
+              onClick={() => {
+                clearInput();
+                dispatch(changeRoute("signin"));
+              }}
+              style={navStyle}
+            >
+              Sign in
+            </li>
+            <li
+              onClick={() => {
+                clearInput();
+                dispatch(changeRoute("register"));
+              }}
+              style={navStyle}
+            >
+              Register
+            </li>
+          </ul>
+        </div>
       )}
-    </>
+    </nav>
   );
 }

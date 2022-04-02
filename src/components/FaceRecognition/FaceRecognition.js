@@ -31,7 +31,7 @@ export default function FaceRecognition() {
         ""
       )}
 
-      {url && faceBox.length == 0 ? <div className="loading"></div> : ""}
+      {url && faceBox.length === 0 ? <div className="loading"></div> : ""}
     </div>
   );
 }

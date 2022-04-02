@@ -1,10 +1,8 @@
 import { React } from "react";
 import Particles from "react-tsparticles";
-import { BrowserRouter } from "react-router-dom";
 import { useSelector } from "react-redux";
 // import { setRoute } from "../action";
 
-import Navigation from "../components/Navigation/Navigation";
 import Logo from "../components/Logo/Logo";
 import Rank from "../components/Rank/Rank";
 import ImageLinkForm from "../components/ImageLinkForm/ImageLinkForm";
@@ -27,10 +25,9 @@ const App = () => {
   };
 
   return (
-    <BrowserRouter>
-      <Particles className="particles" options={particlesOption} />
-      <Navigation />
-      {userStatus == "login" ? (
+    <>
+      {/* <Particles className="particles" options={particlesOption} /> */}
+      {userStatus === "login" ? (
         <>
           <Logo />
           <Rank />
@@ -40,7 +37,7 @@ const App = () => {
       ) : (
         <LoginAndRegister />
       )}
-    </BrowserRouter>
+    </>
   );
 };
 

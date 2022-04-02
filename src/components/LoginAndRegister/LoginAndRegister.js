@@ -2,18 +2,23 @@ import { React, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { userSignin } from "../../features/userSlice";
 import { changeRoute } from "../../features/routeSlice";
+import {
+  changeName,
+  changePassword,
+  changeEmail,
+} from "../../features/inputSlice";
 
 import "./LoginAndRegister.css";
 
 const LoginAndRegister = (props) => {
-  const [inputEmail, setInputEmail] = useState("");
-  const [inputPassword, setInputPassword] = useState("");
-  const [inputName, setInputName] = useState("");
   const [message, setMessage] = useState("");
 
   const dispatch = useDispatch();
   const route = useSelector((state) => state.route.value);
   const userStatus = useSelector((state) => state.user.status);
+  const inputName = useSelector((state) => state.input.name);
+  const inputEmail = useSelector((state) => state.input.email);
+  const inputPassword = useSelector((state) => state.input.password);
 
   function warningMessageForRegister() {
     const name = inputName ? "" : "name";
@@ -26,8 +31,8 @@ const LoginAndRegister = (props) => {
   }
 
   const onSigninOrRegisterSumbit = (e) => {
-    setMessage('')
-    if (route == "register") {
+    setMessage("");
+    if (route === "register") {
       if (!inputEmail || !inputPassword || !inputName) {
         warningMessageForRegister();
       }
@@ -41,7 +46,7 @@ const LoginAndRegister = (props) => {
       }
     }
 
-    if (inputEmail && inputPassword && route == "signin") {
+    if (inputEmail && inputPassword && route === "signin") {
       dispatch(
         userSignin({
           email: inputEmail,
@@ -50,7 +55,7 @@ const LoginAndRegister = (props) => {
       );
     }
 
-    if (inputEmail && inputPassword && inputName && route == "register") {
+    if (inputEmail && inputPassword && inputName && route === "register") {
       dispatch(
         userSignin({
           name: inputName,
@@ -70,21 +75,19 @@ const LoginAndRegister = (props) => {
   return (
     <>
       <div className="container">
-        {userStatus == "loading" ? (
+        {userStatus === "loading" ? (
           <div className="loadingUser">Loading</div>
-        ) : (
-          ""
-        )}
+        ) : null}
         <fieldset id="sign_up" className="ba b--transparent ph0 mh0">
           <legend className="f1 fw6 ph0 mh0">
-            {route == "signin" ? "Sign In" : "Register"}
+            {route === "signin" ? "Sign In" : "Register"}
           </legend>
           <div className="mt3">
-            {route == "signin" ? (
+            {route === "signin" ? (
               <div className="f4">
                 <div>You can login by using this fake account:</div>
                 <br />
-                <div>email: fake@gamil.com</div>
+                <div>email: fake@gmail.com</div>
                 <div>password: fake</div>
                 <br />
               </div>
@@ -94,12 +97,13 @@ const LoginAndRegister = (props) => {
                   Name
                 </label>
                 <input
-                  onChange={(e) => setInputName(e.target.value)}
+                  onChange={(e) => dispatch(changeName(e.target.value))}
                   className="pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100 mb3"
                   type="text"
                   name="name"
                   id="name"
                   autoFocus
+                  value={inputName}
                 />
               </>
             )}
@@ -107,13 +111,14 @@ const LoginAndRegister = (props) => {
               Email
             </label>
             <input
-              onChange={(e) => setInputEmail(e.target.value)}
+              onChange={(e) => dispatch(changeEmail(e.target.value))}
               className="pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100"
               type="email"
               name="email-address"
               id="email-address"
               onKeyPress={handleKeyPress}
               autoFocus
+              value={inputEmail}
             />
           </div>
           <div className="mv3">
@@ -121,12 +126,13 @@ const LoginAndRegister = (props) => {
               Password
             </label>
             <input
-              onChange={(e) => setInputPassword(e.target.value)}
+              onChange={(e) => dispatch(changePassword(e.target.value))}
               className="b pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100"
               type="password"
               name="password"
               id="password"
               onKeyPress={handleKeyPress}
+              value={inputPassword}
             />
           </div>
         </fieldset>
@@ -138,10 +144,15 @@ const LoginAndRegister = (props) => {
             value="Sign in"
           />
         </div>
-        {route == "signin" ? (
+        {route === "signin" ? (
           <div className="lh-copy mt3">
             <p
-              onClick={() => dispatch(changeRoute("register"))}
+              onClick={() => {
+                dispatch(changeName(""));
+                dispatch(changeEmail(""));
+                dispatch(changePassword(""));
+                dispatch(changeRoute("register"));
+              }}
               className="f6 link dim black db pointer"
             >
               Register
@@ -153,7 +164,7 @@ const LoginAndRegister = (props) => {
       </div>
       {message ? (
         <div className="message">{message}</div>
-      ) : userStatus == "fail" ? (
+      ) : userStatus === "fail" ? (
         <div className="message">Wrong email or password</div>
       ) : (
         ""

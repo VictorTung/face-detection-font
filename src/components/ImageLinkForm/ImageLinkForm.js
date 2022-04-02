@@ -6,7 +6,6 @@ import { entriesUpdate } from "../../features/userSlice";
 
 export default function ImageLinkForm() {
   const dispatch = useDispatch();
-  const faceBox = useSelector((state) => state.photo.faceBox);
   const user = useSelector((state) => state.user.value);
 
   const [input, setInput] = useState("");
