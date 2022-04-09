@@ -14,9 +14,6 @@ export default function Navigation() {
   const dispatch = useDispatch();
   const location = useLocation();
   const userStatus = useSelector((state) => state.user.status);
-  const inputName = useSelector((state) => state.input.name);
-  const inputPassword = useSelector((state) => state.input.password);
-  const inputEmail = useSelector((state) => state.input.email);
 
   const clearInput = () => {
     dispatch(changeName(""));
