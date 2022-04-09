@@ -12,5 +12,11 @@ export const store = configureStore({
     photo: photoReducer,
     input: inputReducer,
   },
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
+  middleware: (getDefaultMiddleware) => {
+    if (process.env.NODE_ENV === "development") {
+      return getDefaultMiddleware().concat(logger);
+    } else {
+      return getDefaultMiddleware();
+    }
+  },
 });
